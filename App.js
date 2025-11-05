@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { 
-  StyleSheet, 
-  Text, 
-  View, 
-  TextInput, 
-  TouchableOpacity, 
-  Alert,
-  KeyboardAvoidingView,
-  Platform
+import { Image } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity,
+  Alert
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 export default function App() {
   const [email, setEmail] = useState('');
@@ -28,11 +28,19 @@ export default function App() {
       colors={['#4c6ef5', '#3b5bdb', '#364fc7']}
       style={styles.gradient}
     >
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={styles.container}
+      <KeyboardAwareScrollView
+        contentContainerStyle={styles.container}
+        enableOnAndroid={true}
+        extraScrollHeight={80}
+        extraHeight={120}
+        enableAutomaticScroll={true}
       >
         <View style={styles.loginBox}>
+          <Image
+            source={require('./assets/Images/Nutriwave.png')}
+            style={styles.logo}
+          />
+
           <Text style={styles.title}>Bem-vindo!</Text>
           <Text style={styles.subtitle}>Faça login na sua conta</Text>
 
@@ -63,7 +71,7 @@ export default function App() {
             <Text style={styles.link}>Esqueceu sua senha?</Text>
           </TouchableOpacity>
         </View>
-      </KeyboardAvoidingView>
+      </KeyboardAwareScrollView>
     </LinearGradient>
   );
 }
@@ -73,9 +81,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   container: {
-    flex: 1,
-    justifyContent: 'center',
+    flexGrow: 1,
     paddingHorizontal: 20,
+    paddingTop: 120, // Evita tremedeira
   },
   loginBox: {
     backgroundColor: '#fff',
@@ -130,5 +138,13 @@ const styles = StyleSheet.create({
     fontSize: 14,
     textAlign: 'center',
     marginTop: 15,
-  }
+  },
+  logo: {
+  width: 200,
+  height: 200,
+  alignSelf: 'center',
+  marginTop: 5,
+  resizeMode: 'contain',
+},
+
 });
