@@ -15,7 +15,7 @@ export default function App() {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
 
-  const handleLogin = () => {
+  const Login = () => {
     if (!email || !senha) {
       Alert.alert('Erro', 'Preencha todos os campos!');
       return;
@@ -25,7 +25,7 @@ export default function App() {
 
   return (
     <LinearGradient
-      colors={['#4c6ef5', '#3b5bdb', '#364fc7']}
+      colors={['#4cf54cff', '#3b5bdb', '#36c736ff']}
       style={styles.gradient}
     >
       <KeyboardAwareScrollView
@@ -63,7 +63,7 @@ export default function App() {
             onChangeText={setSenha}
           />
 
-          <TouchableOpacity style={styles.button} onPress={handleLogin}>
+          <TouchableOpacity style={styles.button} onPress={Login}>
             <Text style={styles.buttonText}>Entrar</Text>
           </TouchableOpacity>
 
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#364fc7',
+    color: '#23c73eff',
     textAlign: 'center',
     marginBottom: 5,
   },
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
   button: {
     width: '100%',
     height: 50,
-    backgroundColor: '#4c6ef5',
+    backgroundColor: '#40f31cff',
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   link: {
-    color: '#4c6ef5',
+    color: '#04e90fff',
     fontSize: 14,
     textAlign: 'center',
     marginTop: 15,
