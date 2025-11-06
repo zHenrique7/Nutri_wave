@@ -13,8 +13,8 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 
 
 export default function Login({ navigation }) {
-  const [email, setEmail] = useState('');
-  const [senha, setSenha] = useState('');
+    const [email, setEmail] = useState('');
+    const [senha, setSenha] = useState('');
 
 
     const Login = () => {
@@ -73,9 +73,10 @@ export default function Login({ navigation }) {
                     <TouchableOpacity>
                         <Text style={styles.link}>Esqueceu sua senha?</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigation.navigate('Cadastro')}>
+                    <TouchableOpacity onPress={() => navigation.navigate('EscolherCadastro')}>
                         <Text style={styles.link}>Cadastre-se aqui</Text>
                     </TouchableOpacity>
+
 
                 </View>
             </KeyboardAwareScrollView>
