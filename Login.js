@@ -11,24 +11,35 @@ import {
 import { LinearGradient } from 'expo-linear-gradient';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-
 export default function Login({ navigation }) {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
 
-
-    const Login = () => {
+    const fazerLogin = () => {
         if (!email || !senha) {
             Alert.alert('Erro', 'Preencha todos os campos!');
             return;
         }
-        Alert.alert('Sucesso', `Bem-vindo, ${email}!`);
+
+        // 🔐 Autenticação fictícia temporária
+        // Depois conectamos com backend / AsyncStorage
+        if (email === "nutri@teste.com" && senha === "123") {
+            Alert.alert('Sucesso', `Bem-vindo, Nutricionista!`);
+
+            navigation.replace("Nutricionista", {
+                nome: "Doutor(a)"
+            });
+            return;
+        }
+
+        // Você pode colocar pacientes depois…
+
+        Alert.alert("Erro", "Credenciais inválidas!");
     };
 
     return (
-
         <LinearGradient
-            colors={['#4cf54cff', '#3b5bdb', '#36c736ff']}
+            colors={['#0BA360', '#3CBA92', '#3CD3AD']}
             style={styles.gradient}
         >
             <KeyboardAwareScrollView
@@ -66,18 +77,17 @@ export default function Login({ navigation }) {
                         onChangeText={setSenha}
                     />
 
-                    <TouchableOpacity style={styles.button} onPress={Login}>
+                    <TouchableOpacity style={styles.button} onPress={fazerLogin}>
                         <Text style={styles.buttonText}>Entrar</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity>
                         <Text style={styles.link}>Esqueceu sua senha?</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigation.navigate('EscolherCadastro')}>
+
+                    <TouchableOpacity onPress={() => navigation.navigate('Cadastro')}>
                         <Text style={styles.link}>Cadastre-se aqui</Text>
                     </TouchableOpacity>
-
-
                 </View>
             </KeyboardAwareScrollView>
         </LinearGradient>
@@ -91,7 +101,7 @@ const styles = StyleSheet.create({
     container: {
         flexGrow: 1,
         paddingHorizontal: 20,
-        paddingTop: 120, // Evita tremedeira
+        paddingTop: 120,
     },
     loginBox: {
         backgroundColor: '#fff',
@@ -154,5 +164,4 @@ const styles = StyleSheet.create({
         marginTop: 5,
         resizeMode: 'contain',
     },
-
 });

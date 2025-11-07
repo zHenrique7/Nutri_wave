@@ -11,17 +11,12 @@ import {
 import { LinearGradient } from 'expo-linear-gradient';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-export default function Cadastro({ navigation, route }) {
-    const tipo = route.params?.tipo; // Recebe "paciente" ou "nutricionista"
+export default function Cadastro({ navigation }) {
 
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [confirmacao, setConfirmacao] = useState('');
-
-    // Campos extras para paciente
-    const [peso, setPeso] = useState('');
-    const [altura, setAltura] = useState('');
 
     const cadastrar = () => {
         if (!nome || !email || !senha || !confirmacao) {
@@ -34,40 +29,27 @@ export default function Cadastro({ navigation, route }) {
             return;
         }
 
-        // Validações extras para paciente
-        if (tipo === 'paciente') {
-            if (!peso || !altura) {
-                Alert.alert('Erro', 'Preencha peso e altura!');
-                return;
-            }
-
-            // Validações simples
-            if (isNaN(peso) || isNaN(altura)) {
-                Alert.alert('Erro', 'Peso e altura devem ser números!');
-                return;
-            }
-        }
-
         Alert.alert(
             'Sucesso!',
-            `${tipo === 'paciente' ? 'Paciente' : 'Nutricionista'} ${nome} cadastrado com sucesso!`
+            `Nutricionista ${nome} cadastrado com sucesso!`
         );
 
-        navigation.goBack(); // Volta para login
+        navigation.goBack();
     };
 
     return (
         <LinearGradient
-            colors={['#4cf54cff', '#3b5bdb', '#36c736ff']}
+            colors={['#0BA360', '#3CBA92', '#3CD3AD']}
             style={styles.gradient}
         >
             <KeyboardAwareScrollView
                 contentContainerStyle={[styles.container]}
                 enableOnAndroid={true}
-                extraScrollHeight={80}
-                extraHeight={120}
+                extraScrollHeight={60}
+                extraHeight={80}
                 enableAutomaticScroll={true}
             >
+
                 <View style={styles.loginBox}>
                     <Image
                         source={require('./assets/Images/Nutriwave.png')}
@@ -76,7 +58,7 @@ export default function Cadastro({ navigation, route }) {
 
                     <Text style={styles.title}>Criar Conta</Text>
                     <Text style={styles.subtitle}>
-                        Cadastre-se como {tipo === 'paciente' ? 'Paciente' : 'Nutricionista'}
+                        Cadastro para Nutricionista
                     </Text>
 
                     <TextInput
@@ -86,28 +68,6 @@ export default function Cadastro({ navigation, route }) {
                         value={nome}
                         onChangeText={setNome}
                     />
-
-                    {tipo === 'paciente' && (
-                        <>
-                            <TextInput
-                                style={styles.input}
-                                placeholder="Peso (kg)"
-                                placeholderTextColor="#999"
-                                keyboardType="numeric"
-                                value={peso}
-                                onChangeText={setPeso}
-                            />
-
-                            <TextInput
-                                style={styles.input}
-                                placeholder="Altura (cm)"
-                                placeholderTextColor="#999"
-                                keyboardType="numeric"
-                                value={altura}
-                                onChangeText={setAltura}
-                            />
-                        </>
-                    )}
 
                     <TextInput
                         style={styles.input}
@@ -137,9 +97,6 @@ export default function Cadastro({ navigation, route }) {
                         onChangeText={setConfirmacao}
                     />
 
-                    {/* Campos extras do paciente */}
-
-
                     <TouchableOpacity style={styles.button} onPress={cadastrar}>
                         <Text style={styles.buttonText}>Cadastrar</Text>
                     </TouchableOpacity>
@@ -159,46 +116,48 @@ const styles = StyleSheet.create({
     },
     container: {
         flexGrow: 1,
-        paddingHorizontal: 50,
-        paddingTop: 50,
+        paddingHorizontal: 40,
+        paddingTop: 30,
+        paddingBottom: 20
     },
     loginBox: {
         backgroundColor: '#fff',
-        padding: 25,
+        padding: 20,
         borderRadius: 15,
         shadowColor: '#000',
         shadowOpacity: 0.2,
         shadowOffset: { width: 0, height: 3 },
         shadowRadius: 6,
         elevation: 8,
+        marginBottom: 50
     },
     title: {
-        fontSize: 28,
+        fontSize: 26,
         fontWeight: 'bold',
         color: '#23c73eff',
         textAlign: 'center',
         marginBottom: 5,
     },
     subtitle: {
-        fontSize: 14,
+        fontSize: 13,
         textAlign: 'center',
         color: '#666',
-        marginBottom: 25,
+        marginBottom: 20,
     },
     input: {
         width: '100%',
-        height: 50,
+        height: 45,
         backgroundColor: '#f5f5f5',
         borderRadius: 10,
         paddingHorizontal: 15,
-        fontSize: 16,
-        marginBottom: 15,
+        fontSize: 15,
+        marginBottom: 12,
         borderWidth: 1,
         borderColor: '#ddd',
     },
     button: {
         width: '100%',
-        height: 50,
+        height: 45,
         backgroundColor: '#40f31cff',
         borderRadius: 10,
         alignItems: 'center',
@@ -207,20 +166,20 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         color: '#fff',
-        fontSize: 18,
+        fontSize: 17,
         fontWeight: 'bold',
     },
     link: {
         color: '#04e90fff',
         fontSize: 14,
         textAlign: 'center',
-        marginTop: 15,
+        marginTop: 10,
     },
     logo: {
-        width: 200,
-        height: 200,
+        width: 150,
+        height: 150,
         alignSelf: 'center',
-        marginTop: 5,
         resizeMode: 'contain',
+        marginBottom: 5,
     },
 });
