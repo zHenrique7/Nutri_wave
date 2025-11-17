@@ -76,8 +76,7 @@ export default function NutricionistaDashboard({ navigation }) {
       <View style={styles.tabs}>
         {[
           { nome: "Pacientes", tela: "Nutricionista" },
-          { nome: "Criar Dieta", tela: "CriarDieta" },
-          { nome: "Calculadoras", tela: "Calculadoras" }
+          { nome: "Calculadoras", tela: "Calculadoras" },
           
         ].map((item) => (
           <TouchableOpacity

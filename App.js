@@ -5,6 +5,7 @@ import Cadastro from './Cadastro';
 import Nutricionista from './Nutricionista';
 import NovoPaciente from './NovoPaciente';
 import DetalhesPaciente from './DetalhesPaciente';
+import CriarDieta from './CriarDieta';
 
 
 
@@ -19,6 +20,7 @@ export default function App() {
         <Stack.Screen name="Nutricionista" component={Nutricionista} />
         <Stack.Screen name="NovoPaciente" component={NovoPaciente} />
         <Stack.Screen name="DetalhesPaciente" component={DetalhesPaciente} />
+        <Stack.Screen name="CriarDieta" component={CriarDieta} />
       </Stack.Navigator>
     </NavigationContainer>
   );
