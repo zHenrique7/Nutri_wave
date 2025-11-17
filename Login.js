@@ -11,9 +11,11 @@ import {
 import { LinearGradient } from 'expo-linear-gradient';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
+
 export default function Login({ navigation }) {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
+
 
     const fazerLogin = () => {
         if (!email || !senha) {
@@ -21,10 +23,12 @@ export default function Login({ navigation }) {
             return;
         }
 
+
         // 🔐 Autenticação fictícia temporária
         // Depois conectamos com backend / AsyncStorage
         if (email === "nutri@teste.com" && senha === "123") {
             Alert.alert('Sucesso', `Bem-vindo, Nutricionista!`);
+
 
             navigation.replace("Nutricionista", {
                 nome: "Doutor(a)"
@@ -32,10 +36,13 @@ export default function Login({ navigation }) {
             return;
         }
 
+
         // Você pode colocar pacientes depois…
+
 
         Alert.alert("Erro", "Credenciais inválidas!");
     };
+
 
     return (
         <LinearGradient
@@ -55,8 +62,10 @@ export default function Login({ navigation }) {
                         style={styles.logo}
                     />
 
+
                     <Text style={styles.title}>Bem-vindo!</Text>
                     <Text style={styles.subtitle}>Faça login na sua conta</Text>
+
 
                     <TextInput
                         style={styles.input}
@@ -68,6 +77,7 @@ export default function Login({ navigation }) {
                         onChangeText={setEmail}
                     />
 
+
                     <TextInput
                         style={styles.input}
                         placeholder="Senha"
@@ -77,13 +87,16 @@ export default function Login({ navigation }) {
                         onChangeText={setSenha}
                     />
 
+
                     <TouchableOpacity style={styles.button} onPress={fazerLogin}>
                         <Text style={styles.buttonText}>Entrar</Text>
                     </TouchableOpacity>
 
+
                     <TouchableOpacity>
                         <Text style={styles.link}>Esqueceu sua senha?</Text>
                     </TouchableOpacity>
+
 
                     <TouchableOpacity onPress={() => navigation.navigate('Cadastro')}>
                         <Text style={styles.link}>Cadastre-se aqui</Text>
@@ -94,6 +107,7 @@ export default function Login({ navigation }) {
     );
 }
 
+
 const styles = StyleSheet.create({
     gradient: {
         flex: 1,
@@ -101,7 +115,7 @@ const styles = StyleSheet.create({
     container: {
         flexGrow: 1,
         paddingHorizontal: 20,
-        paddingTop: 120,
+        justifyContent: 'center',
     },
     loginBox: {
         backgroundColor: '#fff',
@@ -118,13 +132,14 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#23c73eff',
         textAlign: 'center',
-        marginBottom: 5,
+        marginTop: -40,
+        marginBottom: 0,
     },
     subtitle: {
         fontSize: 14,
         textAlign: 'center',
         color: '#666',
-        marginBottom: 25,
+        marginBottom: 35,
     },
     input: {
         width: '100%',
@@ -158,10 +173,13 @@ const styles = StyleSheet.create({
         marginTop: 15,
     },
     logo: {
-        width: 200,
+        width: 300,
         height: 200,
         alignSelf: 'center',
-        marginTop: 5,
+        marginTop: -59,
         resizeMode: 'contain',
     },
 });
+
+
+

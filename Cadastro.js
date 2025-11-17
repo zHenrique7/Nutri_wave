@@ -11,12 +11,15 @@ import {
 import { LinearGradient } from 'expo-linear-gradient';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
+
 export default function Cadastro({ navigation }) {
+
 
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [confirmacao, setConfirmacao] = useState('');
+
 
     const cadastrar = () => {
         if (!nome || !email || !senha || !confirmacao) {
@@ -24,18 +27,22 @@ export default function Cadastro({ navigation }) {
             return;
         }
 
+
         if (senha !== confirmacao) {
             Alert.alert('Erro', 'As senhas não coincidem!');
             return;
         }
+
 
         Alert.alert(
             'Sucesso!',
             `Nutricionista ${nome} cadastrado com sucesso!`
         );
 
+
         navigation.goBack();
     };
+
 
     return (
         <LinearGradient
@@ -50,16 +57,19 @@ export default function Cadastro({ navigation }) {
                 enableAutomaticScroll={true}
             >
 
+
                 <View style={styles.loginBox}>
                     <Image
                         source={require('./assets/Images/Nutriwave.png')}
                         style={styles.logo}
                     />
 
+
                     <Text style={styles.title}>Criar Conta</Text>
                     <Text style={styles.subtitle}>
                         Cadastro para Nutricionista
                     </Text>
+
 
                     <TextInput
                         style={styles.input}
@@ -68,6 +78,7 @@ export default function Cadastro({ navigation }) {
                         value={nome}
                         onChangeText={setNome}
                     />
+
 
                     <TextInput
                         style={styles.input}
@@ -79,6 +90,7 @@ export default function Cadastro({ navigation }) {
                         onChangeText={setEmail}
                     />
 
+
                     <TextInput
                         style={styles.input}
                         placeholder="Senha"
@@ -87,6 +99,7 @@ export default function Cadastro({ navigation }) {
                         value={senha}
                         onChangeText={setSenha}
                     />
+
 
                     <TextInput
                         style={styles.input}
@@ -97,9 +110,11 @@ export default function Cadastro({ navigation }) {
                         onChangeText={setConfirmacao}
                     />
 
+
                     <TouchableOpacity style={styles.button} onPress={cadastrar}>
                         <Text style={styles.buttonText}>Cadastrar</Text>
                     </TouchableOpacity>
+
 
                     <TouchableOpacity onPress={() => navigation.goBack()}>
                         <Text style={styles.link}>Já possui conta? Fazer login</Text>
@@ -110,15 +125,15 @@ export default function Cadastro({ navigation }) {
     );
 }
 
+
 const styles = StyleSheet.create({
     gradient: {
         flex: 1,
     },
     container: {
         flexGrow: 1,
-        paddingHorizontal: 40,
-        paddingTop: 30,
-        paddingBottom: 20
+        paddingHorizontal: 20,
+        justifyContent: 'center',
     },
     loginBox: {
         backgroundColor: '#fff',
@@ -128,21 +143,20 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.2,
         shadowOffset: { width: 0, height: 3 },
         shadowRadius: 6,
-        elevation: 8,
-        marginBottom: 50
     },
     title: {
-        fontSize: 26,
+        fontSize: 28,
         fontWeight: 'bold',
         color: '#23c73eff',
         textAlign: 'center',
-        marginBottom: 5,
+        marginTop: -40,
+        marginBottom: 0,
     },
     subtitle: {
-        fontSize: 13,
+        fontSize: 14,
         textAlign: 'center',
         color: '#666',
-        marginBottom: 20,
+        marginBottom: 35,
     },
     input: {
         width: '100%',
@@ -176,10 +190,13 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
     logo: {
-        width: 150,
-        height: 150,
+        width: 300,
+        height: 200,
         alignSelf: 'center',
+        marginTop: -59,
         resizeMode: 'contain',
-        marginBottom: 5,
     },
 });
+
+
+

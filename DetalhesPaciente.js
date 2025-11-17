@@ -1,335 +1,265 @@
 import React from "react";
 import {
-    View,
-    Text,
-    StyleSheet,
-    ScrollView,
-    TouchableOpacity
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
 } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+
 
 export default function DetalhesPaciente({ route, navigation }) {
+  // Dados simulados (apenas para demonstração na tela DetalhesPaciente)
   const { paciente } = route.params;
-    const pesoEvolucao = [
-        { data: "21 Jul", peso: 69 },
-        { data: "30 Jul", peso: 68.7 },
-        { data: "04 Ago", peso: 68.2 },
-        { data: "11 Ago", peso: 68 },
-        { data: "19 Ago", peso: 68.5 }
-    ];
 
-    const historicoConsultas = [
-        {
-            titulo: "Consulta Inicial",
-            descricao: "Avaliação completa e definição de objetivos",
-            peso: "69.0 kg",
-            imc: "25.4",
-            data: "24/07/2024",
-            status: "Concluída"
-        },
-        {
-            titulo: "Acompanhamento - Semana 2",
-            descricao: "Ajustes na dieta e orientações",
-            peso: "68.2 kg",
-            imc: "25.1",
-            data: "07/08/2024",
-            status: "Concluída"
-        },
-        {
-            titulo: "Próxima Consulta",
-            descricao: "Acompanhamento mensal",
-            data: "28/08/2024",
-            status: "Agendada"
-        }
-    ];
 
-    return (
-        <ScrollView style={styles.container}>
-
-            {/* BOTÃO DE VOLTAR */}
-            <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-                <Text style={styles.backText}>← Voltar</Text>
-            </TouchableOpacity>
-
-            {/* Cabeçalho */}
-            <View style={styles.header}>
-                <View>
-                    <Text style={styles.nome}>Ana Silva</Text>
-                    <Text style={styles.idade}>28 anos</Text>
-                </View>
-
-                <View style={styles.headerButtons}>
-                    <TouchableOpacity style={styles.button}>
-                        <Text style={styles.buttonText}>Editar Dados</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                        style={styles.botaoCriarDieta}
-                        onPress={() => navigation.navigate("CriarDieta", { paciente })}
-                    >
-                        <Text style={styles.botaoText}>Criar Dieta</Text>
-                    </TouchableOpacity>
+  // SIMULANDO DADOS NECESSÁRIOS QUE VIRIAM DO CADASTRO REAL
+  const alturaSimulada = paciente.nome.includes('Ana') ? 165 : paciente.nome.includes('João') ? 178 : 150;
+  const emailSimulado = paciente.nome.split(' ')[0].toLowerCase() + '@email.com';
 
 
 
-                </View>
-            </View>
 
-            {/* Dados Pessoais */}
-            <View style={styles.card}>
-                <Text style={styles.cardTitle}>Dados Pessoais</Text>
+  return (
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+     
+      {/* Botão Voltar */}
+      <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
+        <Ionicons name="arrow-back" size={22} color="#333" />
+        <Text style={styles.backText}>Voltar</Text>
+      </TouchableOpacity>
 
-                <View style={styles.row}>
-                    <View>
-                        <Text style={styles.label}>Peso Atual</Text>
-                        <Text style={styles.value}>68.5 kg</Text>
 
-                        <Text style={styles.label}>IMC</Text>
-                        <Text style={styles.value}>25.2</Text>
-                    </View>
+      {/* Cabeçalho */}
+      <View style={styles.headerCard}>
+        <View>
+          <Text style={styles.nome}>{paciente.nome}</Text>
+          <Text style={styles.idade}>{paciente.idade} anos</Text>
+          {/* NOVO CAMPO: EMAIL ABAIXO DA IDADE */}
+          <Text style={styles.email}>{emailSimulado}</Text>
+        </View>
 
-                    <View>
-                        <Text style={styles.label}>Altura</Text>
-                        <Text style={styles.value}>165 cm</Text>
 
-                        <Text style={styles.label}>Objetivo</Text>
-                        <Text style={styles.value}>Perder peso</Text>
-                    </View>
-                </View>
-            </View>
+        <View
+          style={[
+            styles.status,
+            { backgroundColor: paciente.status === "Ativo" ? "#27ae60" : "#999" },
+          ]}
+        >
+          <Text style={styles.statusText}>{paciente.status}</Text>
+        </View>
+      </View>
 
-            {/* Progresso */}
-            <View style={styles.card}>
-                <Text style={styles.cardTitle}>Progresso</Text>
 
-                <Text style={styles.label}>Variação da Semana</Text>
-                <Text style={styles.valueGreen}>-0.5 kg</Text>
+      {/* Dados Pessoais */}
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Dados Pessoais</Text>
 
-                <Text style={styles.label}>Peso Inicial</Text>
-                <Text style={styles.value}>69 kg</Text>
 
-                <Text style={styles.label}>Progresso Total</Text>
-                <Text style={styles.valueGreen}>-0.5 kg</Text>
+        <View style={styles.rowBetween}>
+          <Text style={styles.label}>Peso Atual:</Text>
+          <Text style={styles.value}>{paciente.peso} kg</Text>
+        </View>
+       
+        {/* NOVO CAMPO: ALTURA DENTRO DE DADOS PESSOAIS */}
+        <View style={styles.rowBetween}>
+          <Text style={styles.label}>Altura:</Text>
+          <Text style={styles.value}>{alturaSimulada} cm</Text>
+        </View>
 
-                <Text style={styles.label}>Meta Mensal</Text>
-                <View style={styles.metaBarContainer}>
-                    <View style={styles.metaBarFill} />
-                </View>
-                <Text style={styles.metaPercent}>25% da meta</Text>
-            </View>
 
-            {/* Gráfico */}
-            <View style={styles.card}>
-                <Text style={styles.cardTitle}>Evolução do Peso</Text>
+        <View style={styles.rowBetween}>
+          <Text style={styles.label}>IMC:</Text>
+          <Text style={styles.value}>{paciente.imc}</Text>
+        </View>
 
-                <View style={styles.chartContainer}>
-                    {pesoEvolucao.map((item, index) => (
-                        <View key={index} style={styles.chartColumn}>
-                            <View
-                                style={[
-                                    styles.chartBar,
-                                    { height: (item.peso - 65) * 12 }
-                                ]}
-                            />
-                            <Text style={styles.chartText}>{item.peso}kg</Text>
-                            <Text style={styles.chartLabel}>{item.data}</Text>
-                        </View>
-                    ))}
-                </View>
-            </View>
 
-            {/* Histórico */}
-            <View style={styles.card}>
-                <Text style={styles.cardTitle}>Histórico de Consultas</Text>
+        <View style={styles.rowBetween}>
+          <Text style={styles.label}>Objetivo:</Text>
+          <Text style={styles.value}>{paciente.objetivo}</Text>
+        </View>
 
-                {historicoConsultas.map((item, i) => (
-                    <View key={i} style={styles.consultaItem}>
-                        <View>
-                            <Text style={styles.consultaTitulo}>{item.titulo}</Text>
-                            <Text style={styles.consultaDescricao}>{item.descricao}</Text>
 
-                            {item.peso && (
-                                <Text style={styles.consultaInfo}>
-                                    Peso: {item.peso} | IMC: {item.imc}
-                                </Text>
-                            )}
-                        </View>
+        <View style={styles.rowBetween}>
+          <Text style={styles.label}>Variação:</Text>
+          <Text style={[styles.value, { color: paciente.variacao.includes('-') ? "#27ae60" : "#2980b9" }]}>
+            {paciente.variacao}
+          </Text>
+        </View>
+      </View>
 
-                        <View>
-                            <Text style={styles.data}>{item.data}</Text>
-                            <Text style={styles.status}>{item.status}</Text>
-                        </View>
-                    </View>
-                ))}
-            </View>
-        </ScrollView>
-    );
+
+      {/* Progresso */}
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Progresso</Text>
+
+
+        <Text style={styles.label}>Peso inicial: 69 kg</Text>
+        <Text style={styles.label}>Progresso total: {paciente.variacao}</Text>
+
+
+        <View style={styles.progressBarBg}>
+          <View style={[styles.progressBarFill, { width: "30%" }]} />
+        </View>
+
+
+        <Text style={styles.progressText}>Meta mensal: -2.0 kg</Text>
+      </View>
+
+
+      {/* Histórico */}
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Histórico de Consultas</Text>
+
+
+        <View style={styles.historyItem}>
+          <Text style={styles.historyTitle}>Consulta Inicial</Text>
+          <Text style={styles.historySub}>Peso: 69 kg | IMC: 25.4</Text>
+          <Text style={styles.historyDate}>19/07/2024</Text>
+        </View>
+
+
+        <View style={styles.historyItem}>
+          <Text style={styles.historyTitle}>Acompanhamento - Semana 2</Text>
+          <Text style={styles.historySub}>Peso: 68.2 kg | IMC: 25.1</Text>
+          <Text style={styles.historyDate}>07/08/2024</Text>
+        </View>
+
+
+        <View style={styles.historyItem}>
+          <Text style={styles.historyTitle}>Próxima Consulta</Text>
+          <Text style={styles.historySub}>Acompanhamento mensal</Text>
+          <Text style={[styles.historyDate, { color: "#2980b9" }]}>28/08/2024 (Agendada)</Text>
+        </View>
+      </View>
+    </ScrollView>
+  );
 }
 
+
 const styles = StyleSheet.create({
-    container: { flex: 1, padding: 15, backgroundColor: "#F4F8F9" },
+  container: {
+    flex: 1,
+    backgroundColor: "#eaf7eb",
+    padding: 14,
+  },
 
-    header: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        marginBottom: 20
-    },
 
-    nome: {
-        fontSize: 22,
-        fontWeight: "700",
-        color: "#222"
-    },
-    idade: {
-        color: "#777",
-        marginTop: 2
-    },
+  // Botão de voltar
+  backBtn: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 14,
+  },
+  backText: {
+    marginLeft: 6,
+    fontSize: 16,
+    fontWeight: "600",
+  },
 
-    headerButtons: {
-        flexDirection: "row",
-        gap: 10
-    },
 
-    button: {
-        backgroundColor: "#1976D2",
-        padding: 12,
-        borderRadius: 10,
-        marginTop: 20,
-        alignItems: "center",
-    },
-    buttonText: {
-        color: "#fff",
-        fontWeight: "600"
-    },
+  // Card superior
+  headerCard: {
+    backgroundColor: "#fff",
+    padding: 16,
+    borderRadius: 12,
+    marginBottom: 14,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  nome: {
+    fontSize: 20,
+    fontWeight: "700",
+  },
+  idade: {
+    fontSize: 14,
+    color: "#666",
+    marginTop: 4,
+  },
+  email: { // NOVO ESTILO PARA O EMAIL
+    fontSize: 13,
+    color: "#2980b9",
+    marginTop: 2,
+  },
 
-    card: {
-        backgroundColor: "#fff",
-        padding: 15,
-        borderRadius: 12,
-        marginBottom: 20,
-        elevation: 2
-    },
 
-    cardTitle: {
-        fontSize: 18,
-        fontWeight: "700",
-        marginBottom: 10
-    },
+  status: {
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 8,
+  },
+  statusText: {
+    color: "#fff",
+    fontWeight: "600",
+    fontSize: 12,
+  },
 
-    label: {
-        color: "#555",
-        marginTop: 8
-    },
-    value: {
-        fontSize: 18,
-        fontWeight: "600",
-        color: "#222"
-    },
-    valueGreen: {
-        fontSize: 18,
-        fontWeight: "600",
-        color: "#33aa44"
-    },
 
-    row: {
-        flexDirection: "row",
-        justifyContent: "space-between"
-    },
+  // Seções
+  section: {
+    backgroundColor: "#fff",
+    padding: 16,
+    borderRadius: 12,
+    marginBottom: 14,
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: "700",
+    marginBottom: 12,
+  },
 
-    metaBarContainer: {
-        width: "100%",
-        backgroundColor: "#e0e0e0",
-        height: 8,
-        borderRadius: 5,
-        marginTop: 5
-    },
-    metaBarFill: {
-        width: "25%",
-        height: "100%",
-        backgroundColor: "#4CAF50",
-        borderRadius: 5
-    },
-    metaPercent: { marginTop: 5, color: "#555" },
 
-    chartContainer: {
-        flexDirection: "row",
-        justifyContent: "space-around",
-        marginTop: 15,
-        alignItems: "flex-end"
-    },
+  rowBetween: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginVertical: 4,
+  },
+  label: {
+    color: "#555",
+    fontSize: 14,
+  },
+  value: {
+    fontSize: 14,
+    fontWeight: "600",
+  },
 
-    chartColumn: { alignItems: "center" },
 
-    chartBar: {
-        width: 30,
-        backgroundColor: "#4CAF50",
-        borderRadius: 6
-    },
+  // Barra de progresso
+  progressBarBg: {
+    height: 10,
+    backgroundColor: "#cdd",
+    borderRadius: 6,
+    marginTop: 10,
+  },
+  progressBarFill: {
+    height: 10,
+    backgroundColor: "#27ae60",
+    borderRadius: 6,
+  },
+  progressText: {
+    marginTop: 8,
+    fontSize: 12,
+    color: "#555",
+  },
 
-    chartText: {
-        marginTop: 5,
-        fontSize: 12
-    },
-    chartLabel: {
-        fontSize: 12,
-        color: "#777"
-    },
 
-    consultaItem: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        marginBottom: 15,
-        paddingBottom: 10,
-        borderBottomWidth: 1,
-        borderColor: "#eee"
-    },
-    consultaTitulo: {
-        fontSize: 16,
-        fontWeight: "700"
-    },
-    consultaDescricao: {
-        color: "#555"
-    },
-    consultaInfo: {
-        marginTop: 5,
-        fontSize: 12,
-        color: "#666"
-    },
-
-    data: {
-        fontSize: 12,
-        color: "#777",
-        textAlign: "right"
-    },
-    status: {
-        textAlign: "right",
-        backgroundColor: "#ddd",
-        paddingHorizontal: 6,
-        paddingVertical: 2,
-        marginTop: 5,
-        borderRadius: 5,
-        fontSize: 12
-    },
-    backButton: {
-        paddingVertical: 5,
-        marginBottom: 10
-    },
-    backText: {
-        fontSize: 18,
-        color: "#4CAF50",
-        fontWeight: "700"
-    },
-
-    botaoCriarDieta: {
-        backgroundColor: "#1976D2",
-        padding: 12,
-        borderRadius: 10,
-        marginTop: 20,
-        alignItems: "center",
-    },
-
-    botaoCriarDietaTexto: {
-        color: "#fff",
-        fontWeight: "600"
-    },
-
+  // Histórico
+  historyItem: {
+    marginBottom: 14,
+  },
+  historyTitle: {
+    fontSize: 15,
+    fontWeight: "700",
+  },
+  historySub: {
+    fontSize: 13,
+    color: "#555",
+  },
+  historyDate: {
+    fontSize: 12,
+    marginTop: 4,
+  },
 });
+
